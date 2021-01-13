@@ -41,6 +41,12 @@ function useToggle({
 
   const onIsControlled = controlledOn !== undefined
 
+  if (onIsControlled && !onChange) {
+    console.error(
+      "Warning: You provided an `on` prop to a toggle button without an `onChange` handler. This will render a read-only field. If you're a good guy, set the `onChange` as well.",
+    )
+  }
+
   // 🐨 Replace the next line with assigning `on` to `controlledOn` if
   // `onIsControlled`, otherwise, it should be `state.on`.
   // const {on} = state
@@ -131,7 +137,7 @@ function App() {
   return (
     <div>
       <div>
-        <Toggle on={bothOn} onChange={handleToggleChange} />
+        <Toggle on={bothOn} />
         <Toggle on={bothOn} onChange={handleToggleChange} />
       </div>
       {timesClicked > 4 ? (
