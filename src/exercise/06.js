@@ -3,6 +3,7 @@
 
 import * as React from 'react'
 import {Switch} from '../switch'
+import warning from 'warning'
 
 const callAll = (...fns) => (...args) => fns.forEach(fn => fn?.(...args))
 
@@ -41,11 +42,10 @@ function useToggle({
 
   const onIsControlled = controlledOn !== undefined
 
-  if (onIsControlled && !onChange) {
-    console.error(
-      "Warning: You provided an `on` prop to a toggle button without an `onChange` handler. This will render a read-only field. If you're a good guy, set the `onChange` as well.",
-    )
-  }
+  warning(
+    onIsControlled && !onChange,
+    "Warning: You provided an `on` prop to a toggle button without an `onChange` handler. This will render a read-only field. If you're a good guy, set the `onChange` as well.",
+  )
 
   // 🐨 Replace the next line with assigning `on` to `controlledOn` if
   // `onIsControlled`, otherwise, it should be `state.on`.
